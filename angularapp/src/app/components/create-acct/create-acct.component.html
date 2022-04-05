@@ -1,0 +1,83 @@
+<main class="pa5 black-80">
+  <form
+    class="measure right  pa4 br3 bg-white .shadow-4"
+    #acctForm="ngForm"
+    (ngSubmit)="onSubmit(acctForm.value)"
+  >
+    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+      <legend class="f4 fw6 ph0 mh0 green">Create An Account</legend>
+      <div class="mt3">
+        <label class="db fw6 lh-copy f5" for="name">Name</label>
+        <input
+          class="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+          type="text"
+          name="name"
+          required
+          ngModel
+          minlength="4"
+          #name="ngModel"
+          ng-valid
+          ng-touched
+          id="name"
+        />
+        <small class="red" *ngIf="name.touched && name.invalid"
+          >Name field Must be entered</small
+        >
+      </div>
+      <div class="mv3">
+        <label class="db fw6 lh-copy f5" for="acct-type"
+          >Select Account Type</label
+        >
+        <select
+          name="acctType"
+          required
+          #acctType="ngModel"
+          ngModel
+          [(ngModel)]="selected"
+          id="acct-type"
+          class="ph2 br3 pv1"
+        >
+          <option value="savings">Savings</option>
+          <option value="current">Current</option>
+        </select>
+      </div>
+      <div class="mv3">
+        <label class="db fw6 lh-copy f5" for="amount">Amount(R)</label>
+        <input
+          class="b pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+          ng-valid
+          ng-touched
+          type="number"
+          name="amount"
+          required
+          ngModel
+          minlength="1"
+          #amount="ngModel"
+          id="amount"
+          [ngModel]="acctType.value === 'savings' ? amtValue : -100000"
+        />
+        <small
+          class="red"
+          *ngIf="acctType.value === 'savings' && amount.value < 1000"
+          >Minimum Amount for savings is R1,000.00</small
+        >
+        <small
+          class="red"
+          *ngIf="acctType.value === 'current' && amount.value < -100000"
+          >Minimum Amount for Current is R-100,000.00</small
+        > <br>
+        <small class="red" *ngIf="amount.touched && amount.invalid"
+          >Amount field Must be Entered</small
+        >
+      </div>
+    </fieldset>
+    <div class="">
+      <input
+        class="b ph3 br3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+        type="submit"
+        value="Create"
+        [disabled]="!acctForm.valid || acctType.value === 'savings' && amount.value < 1000 || acctType.value === 'current' && amount.value < -100000"
+      />
+    </div>
+  </form>
+</main>

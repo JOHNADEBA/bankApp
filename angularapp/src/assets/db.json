@@ -1,0 +1,13 @@
+[
+  {
+     "id": 1,
+    "acctType": "savings",
+    "amount": 1000,
+    "name": "baba"
+  },{
+    "id": 2,
+    "acctType": "current",
+    "amount": -100000,
+    "name": "anah"
+  }
+]

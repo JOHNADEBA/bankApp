@@ -1,0 +1,114 @@
+<main class="pa5 black-80">
+  <form
+    class="measure left pa4 br3 bg-white .shadow-4"
+    #transactionForm="ngForm"
+    (ngSubmit)="onTransact(transactionForm.value)"
+  >
+    <small class="red" *ngIf="error">{{ error }}</small>
+    <small class="green" *ngIf="success">{{ success }}</small>
+    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
+      <legend class="f4 green fw6 ph0 mh0">Make A Transaction</legend>
+
+      <div class="mv3">
+        <label class="db fw6 lh-copy f5" for="trans-type"
+          >Transaction Type</label
+        >
+        <select
+          name="transType"
+          required
+          #transType="ngModel"
+          ngModel
+          [(ngModel)]="selected"
+          id="trans-type"
+          class="ph2 br3 pv1"
+        >
+          <option value="Withdraw">Withdraw</option>
+          <option value="Deposit">Deposit</option>
+        </select>
+      </div>
+
+      <div class="mt3">
+        <label class="db fw6 lh-copy f5" for="acct-number"
+          >Account Number
+        </label>
+        <input
+          class="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+          type="text"
+          name="accountnumber"
+          required
+          ngModel
+          minlength="8"
+          #accountnumber="ngModel"
+          ng-valid
+          ng-touched
+          id="acct-number"
+          (ngModelChange)="getName(accountnumber.value)"
+          pattern="[0-9]+"
+        />
+        <small
+          class="red"
+          *ngIf="accountnumber.touched && accountnumber.invalid"
+          >Account Number field Must be entered</small
+        >
+      </div>
+
+      <div class="mt3">
+        <label class="db fw6 lh-copy f5" for="name">Account Name </label>
+        <input
+          class="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+          type="text"
+          name="name"
+          [(ngModel)]="acctName"
+          minlength="4"
+          ng-valid
+          ng-touched
+          id="name"
+          readonly
+        />
+      </div>
+
+      <div class="mt3">
+        <label class="db fw6 lh-copy f5" for="balance"
+          >Available Balance(R)
+        </label>
+        <input
+          class="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+          type="text"
+          name="balance"
+          required
+          [(ngModel)]="balance"
+          ng-valid
+          ng-touched
+          id="balance"
+          readonly
+        />
+      </div>
+
+      <div class="mv3">
+        <label class="db fw6 lh-copy f5" for="amount">Amount(R)</label>
+        <input
+          class="b pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+          ng-valid
+          ng-touched
+          type="number"
+          name="amount"
+          min="0"
+          required
+          ngModel
+          minlength="1"
+          #amount="ngModel"
+          id="amount"
+        />
+      </div>
+    </fieldset>
+    <div class="">
+      <input
+        class="b ph3 br3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+        type="submit"
+        [value]="transType.value"
+      />
+    </div>
+  </form>
+
+  
+</main>

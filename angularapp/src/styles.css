@@ -1,0 +1,9 @@
+body {
+  background-image: url("https://images.ctfassets.net/fzn2n1nzq965/3AGidihOJl4nH9D1vDjM84/9540155d584be52fc54c443b6efa4ae6/homepage.png?q=80");
+background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk_FLGxN0swO9LwsIcO4DC8GbioF8QOsPAeA&usqp=CAU');
+/* background-image: url('./assets/IMG_3014.JPG'); */
+background-position: center; /* Center the image */
+background-repeat: no-repeat; /* Do not repeat the image */
+height: 102vh;
+background-size: cover;
+}
