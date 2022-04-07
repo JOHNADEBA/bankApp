@@ -1,9 +1,11 @@
 <div class="measure right ma3 ph3 pv2 br3 bg-white shadow-4">
   <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
-    <legend class="f4 green fw6 ph0 mh0 pb0 ">Get Transaction History</legend>
+    <legend class="f4 green fw6 ph0 mh0 pb0">Get Transaction History</legend>
 
     <div class="mt3">
-      <label class="db mt-4 fw6 lh-copy f5" for="acct-number">Account Number </label>
+      <label class="db mt-4 fw6 lh-copy f5" for="acct-number"
+        >Account Number
+      </label>
       <input
         class="pa2 br3 input-reset ba bg-transparent hover-bg-black hover-white w-100"
         type="text"
@@ -28,34 +30,72 @@
   </fieldset>
 </div>
 
-<div *ngIf="acctDetails" class="w-75 center ma3 pa3 br3 bg-white shadow-4">
-  <p class="f4 blue b tc mv0">
-    Dear {{ acctDetails.name }}, Below are your trasaction history from
-    {{ acctDetails.registration_date | date }}
-  </p>
+<div class="flex justify-around mt3 mb0">
+  <div *ngIf="acctDetails" class="w-45 center pa3 br3 bg-white shadow-4">
+    <p class="f4 blue b tc mv0">
+      Dear {{ acctDetails.name }}, Below are your trasaction history from
+      {{ acctDetails.registration_date | date }}
+    </p>
+    <p class="green tc b mb0">
+      <span class="">BALANCE:</span> {{ acctDetails.balance | currency: "R" }}
+    </p>
 
-  <div class="pa4 b">
-  <div class="overflow-auto">
-    <p class="f4 red b tc mv0" *ngIf="noTransactiion"> {{ noTransactiion}}</p>
-    <table  *ngIf="allTransactions.length > 0" class="f6 w-100 mw8 center" cellspacing="0">
-      <thead>
-        <tr class="red tc">
-          <th class="fw6 bb b--black-20 tl pb3 pr3 bg-white">AMOUNT</th>
-          <th class="fw6 bb b--black-20 tl pb3 pr3 bg-white">TYPE OF TRANSACTION</th>
-          <th class="fw6 bb b--black-20 tl pb3 pr3 bg-white">DATE</th>
-        </tr>
-      </thead>
-      <tbody class="lh-copy" *ngFor="let detail of allTransactions">
-        <tr>
-          <td class="pv1 pr3 bb b--black-20">{{ detail.amount | currency:'R' }}</td>
-          <td [ngClass]="detail.transactiontype === 'Withdraw' ? 'withdrwal' : 'deposit'" class="pv1 pr3 bb b--black-20">{{ detail.transactiontype }}</td>
-          <td class="pv1 pr3 bb b--black-20">{{ detail.date | date }}</td>
-        </tr>
-       
-      </tbody>
-    </table>
+    <div class="pa4 b">
+      <div class="overflow-auto">
+        <p class="f4 red b tc mv0" *ngIf="noTransactiion">
+          {{ noTransactiion }}
+        </p>
+        <table
+          *ngIf="allTransactions.length > 0"
+          class="f6 w-100 mw8 center"
+          cellspacing="0"
+        >
+          <thead>
+            <tr class="red tc">
+              <th class="fw6 bb b--black-20 tl pb3 pr3 bg-white">AMOUNT</th>
+              <th class="fw6 bb b--black-20 tl pb3 pr3 bg-white">
+                TYPE OF TRANSACTION
+              </th>
+              <th class="fw6 bb b--black-20 tl pb3 pr3 bg-white">DATE</th>
+            </tr>
+          </thead>
+          <tbody class="lh-copy" *ngFor="let detail of allTransactions">
+            <tr>
+              <td class="pv1 pr3 bb b--black-20">
+                {{ detail.amount | currency: "R" }}
+              </td>
+              <td
+                [ngClass]="
+                  detail.transactiontype === 'Withdraw'
+                    ? 'withdrwal'
+                    : 'deposit'
+                "
+                class="pv1 pr3 bb b--black-20"
+              >
+                {{ detail.transactiontype }}
+              </td>
+              <td class="pv1 pr3 bb b--black-20">{{ detail.date | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
 
-  
+  <div
+    *ngIf="allTransactions.length > 0"
+    class="w-45 center pl3 pa3 br3 bg-white shadow-4"
+  >
+    <canvas
+      style="height: 300px"
+      baseChart
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [legend]="lineChartLegend"
+      [chartType]="lineChartType"
+      [plugins]="lineChartPlugins"
+    >
+    </canvas>
+  </div>
 </div>
